@@ -1,5 +1,7 @@
 # Polynomial identities, sums of three squares, and quaternionic (anti-)automorphisms
 
+[![DOI](https://zenodo.org/badge/1334840229.svg)](https://doi.org/10.5281/zenodo.21943651)
+
 D. V. Feldman (University of New Hampshire)
 
 Words in a free monoid on four letters, fixed by reversal-with-inversion of the
