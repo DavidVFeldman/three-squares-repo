@@ -1,0 +1,489 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1.2in]{geometry}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{question}[theorem]{Question}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\bz}{\bar{\zeta}}
+\newcommand{\bw}{\bar{w}}
+\newcommand{\ia}{\iota_\alpha}
+\newcommand{\ib}{\iota_\beta}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\Fix}{Fix}
+\DeclareMathOperator{\N}{N}
+\DeclareMathOperator{\Rot}{R}
+
+\title{Polynomial identities, sums of three squares,\\ and quaternionic (anti-)automorphisms}
+\author{David V. Feldman\\ \small University of New Hampshire}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Evaluating words in a free monoid at the quaternions $t+iu$ and $x+yj+zk$, we show that every word fixed by the composition of string reversal with inversion of the $\alpha$-letters evaluates to a quaternion with vanishing $i$-coefficient, and hence yields a polynomial identity
+\[
+(t^2+u^2)^{2m}\,(x^2+y^2+z^2)^n \;=\; f_1^2+f_j^2+f_k^2
+\]
+with $f_1,f_j,f_k\in\ZZ[t,u,x,y,z]$. The proof is a two-line fixed-point argument for the anti-involution $p\mapsto i^{-1}\bar p\, i$ and is valid over every commutative ring. Using the freeness of a rotation group of Świerczkowski we prove that the evaluation map is injective on reduced words, and we determine the exact number of identities of each bidegree: the count has rational generating function $(1+s)/(1-s-q-3sq)$, so it grows linearly in $n$ for $m=1$ (namely $2n$ or $2n-2$ identities), polynomially of degree $m$ in $n$ for each fixed $m$, and exponentially, with growth rate $9$, along diagonals. We situate the family against the classical composition problem (no bilinear identity of this shape exists, and by a theorem of Pfister the exponent $2m$ cannot be replaced by any odd number when $n$ is odd, even allowing rational functions), identify the underlying mechanism as a word-indexed twisting of the conjugation action of $\HH^\times$ on pure quaternions, classify the anti-involutions that can play the role of $p\mapsto i^{-1}\bar p\,i$, and settle the group-theoretic side of the remaining uniqueness question by a freeness theorem for the rotations through $\arccos\frac13$ about the three coordinate axes, proved by a rank-one-modulo-$3$ refinement of Świerczkowski's method; what remains is a single symmetric-word condition, verified through length twelve.
+\end{abstract}
+
+\section{Introduction}\label{sec:intro}
+
+A classical identity recorded in Dickson's chapter on sums of three squares \cite[Ch.~VII, p.~265]{Dickson} and attributed there to V.-A.~Lebesgue (1868) expresses the square of a sum of four squares as a sum of three:
+\begin{equation}\label{eq:lebesgue}
+(\alpha^2+\beta^2+\gamma^2+\delta^2)^2=(\alpha^2+\beta^2-\gamma^2-\delta^2)^2+(2\alpha\gamma+2\beta\delta)^2+(2\alpha\delta-2\beta\gamma)^2:
+\end{equation}
+in quaternionic terms, conjugating $i$ by a quaternion $q$ produces a pure quaternion of norm $\N(q)^2$. The present paper studies a cognate family in which the conjugating quaternion is itself structured---a word in prescribed letters---beginning with
+\begin{equation}\label{eq:first}
+(t^2+u^2)^2\,(x^2+y^2+z^2)\;=\;\bigl((t^2+u^2)x\bigr)^2+\bigl((t^2-u^2)y-2tuz\bigr)^2+\bigl((t^2-u^2)z+2tuy\bigr)^2,
+\end{equation}
+which expresses a product of quadratic forms in \emph{independent} variables as a sum of three polynomial squares. (We have not found \eqref{eq:first} itself in Dickson's chapter or elsewhere, though it is elementary; we would be glad to learn of an appearance.) Two features of \eqref{eq:first} deserve notice. First, the identity is not bilinear: the first factor enters through the \emph{square} of $t^2+u^2$, and the polynomials on the right are not bilinear in the two groups of variables. Second, neither feature can be repaired. By the Hurwitz--Radon theory of compositions of quadratic forms \cite{Hurwitz, HurwitzMA, Radon, ShapiroBook, ShapiroSurvey}, no identity of size $[2,3,3]$ or $[3,3,3]$ exists over any field of characteristic $\ne 2$---consistently, the classical product identities of the shape $(a^2+b^2+c^2)(p^2+q^2+r^2)=\square+\square+\square$ recorded by Dickson (Weddle, Young, Catalan; \cite[Ch.~VII, pp.~263, 269]{Dickson}) all hold only under constraints binding the two sets of variables---and, much more strongly, a theorem of Pfister \cite{Pfister} implies that $(t^2+u^2)^{a}(x^2+y^2+z^2)^{n}$ with $a$ and $n$ odd is not a sum of three squares even in $\RR(t,u,x,y,z)$ (Proposition~\ref{prop:no-first-power}). The doubling of the exponent in \eqref{eq:first} is forced.
+
+This paper studies the natural habitat of \eqref{eq:first}: a family of identities
+\begin{equation}\label{eq:main-shape}
+(t^2+u^2)^{2m}\,(x^2+y^2+z^2)^{n}\;=\;f_1^2+f_j^2+f_k^2,
+\qquad f_1,f_j,f_k\in\ZZ[t,u,x,y,z],
+\end{equation}
+indexed by words in a free monoid. Write $h$ for the evaluation sending the letters $\alpha,\alpha^{-1},\beta,\beta^{-1}$ to the quaternions
+\[
+h(\alpha)=t+iu,\quad h(\alpha^{-1})=t-iu,\quad h(\beta)=x+yj+zk,\quad h(\beta^{-1})=x-yj-zk,
+\]
+and extend multiplicatively to words. Let $S$ denote the set of reduced words fixed by the composition of string reversal with inversion of all $\alpha$-letters. The basic phenomenon (Theorem~\ref{thm:cancel}) is that for $\sigma\in S$ the coefficient of $i$ in $h(\sigma)$ vanishes identically, so that taking norms produces an identity \eqref{eq:main-shape}, where $2m$ and $n$ count the $\alpha$-letters and $\beta$-letters of $\sigma$. The word $\alpha\beta\alpha^{-1}$ recovers \eqref{eq:first}.
+
+Individually, these identities are classical in mechanism if not in statement: we show in \S\ref{sec:transport} that each is a word-indexed twisting of the conjugation action of $\HH^\times$ on pure quaternions, whose use in the study of ternary forms goes back at least to Pall \cite{Pall}; the $m=0$ subfamily is the folklore family of identities for $(x^2+y^2+z^2)^n$, governed by Chebyshev polynomials. What we believe is new is the \emph{combinatorial parametrization and its exactness}: the correspondence between identities and symmetric words is faithful. Our main results are:
+
+\begin{enumerate}
+\item[(i)] \textbf{Cancellation} (Theorem~\ref{thm:cancel}). For $\sigma\in S$, $h(\sigma)$ has no $i$-component. The proof exhibits $h(\sigma)$ as a fixed point of the anti-involution $\theta(p)=i^{-1}\bar p\, i$; the theorem holds over every commutative ring, by specialization from $\ZZ$ or by a companion induction that avoids division by $2$ entirely. Among the involutions of the quaternions, $\theta$ is, up to symmetry, the only one that could produce a nontrivial family of this kind (Proposition~\ref{prop:classify}).
+\item[(ii)] \textbf{Injectivity} (Theorem~\ref{thm:inject}). The evaluation $h$ is injective on reduced words, and $h(\sigma)=\pm h(\sigma')$ forces $\sigma=\sigma'$. The proof passes to the rotation group $\SO(3)$ and invokes the freeness, due to Świerczkowski \cite{Swierczkowski}, of the group generated by rotations through $\arccos\frac13$ about two perpendicular axes.
+\item[(iii)] \textbf{Census} (Theorem~\ref{thm:census}). Up to the sign changes that obviously preserve an identity, the identities of type $(m,n)$ correspond to the orbits of an explicit involution on $S$, and their number $c(m,n)$ satisfies
+\[
+\sum_{m,k\ge 0} c(m,2k+1)\, s^m q^k \;=\;\frac{1+s}{1-s-q-3sq},\qquad c(m,2k+2)=c(m,2k+1).
+\]
+In particular $c(1,n)$ equals $2n$ for $n$ odd and $2n-2$ for $n$ even; for each fixed $m$ the count grows as a polynomial of degree $m$ in $n$; and along the diagonal $c(k,2k+1)^{1/k}\to 9$. The growth is thus emphatically \emph{not} exponential in $m+n$: rows grow polynomially, and only diagonals grow exponentially.
+\item[(iv)] \textbf{Fine equivalence} (\S\ref{sec:fine}). Allowing also permutations of the three squares, a parity invariant shows only the transposition of $f_j$ with $f_k$ is in question, and a degeneration argument at $u=0$ confines any further coincidence to a narrow class of word pairs. A freeness theorem for the rotations through $\arccos\frac13$ about the three coordinate axes (Theorem~\ref{thm:rank3}), proved by a rank-one-modulo-$3$ refinement of Świerczkowski's method, then excludes every sign-pattern coincidence outright; the residue is a single symmetric-word condition (Conjecture~\ref{conj:exact}), verified through word length $12$.
+\end{enumerate}
+
+We work throughout in a complex compression of the quaternions ($\HH=\CC\oplus\CC j$, $\zeta=t+iu$, $w=y+iz$) under which each identity \eqref{eq:main-shape} takes the form
+\[
+(\zeta\bz)^{2m}(x^2+w\bw)^n=f_1^2+F\bar F,\qquad F=f_j+if_k,
+\]
+and \eqref{eq:first} becomes the one-line statement $f_1=\zeta\bz\,x$, $F=\zeta^2 w$. The appendix tabulates, in this notation, every identity through word length $6$ and a sample beyond; all tables, and every identity displayed in the paper, have been generated and verified by machine (Remark~\ref{rem:verify}).
+
+For orientation within the literature on sums of squares of polynomials: the counting of essentially different representations has precedent---most famously, a smooth complex ternary quartic has exactly $63$ inequivalent representations as a sum of three squares \cite{PSV}, exactly $8$ of them real when the quartic is positive semidefinite with smooth zero curve \cite{PRSS}---but there the count attaches to a single form, while here it attaches to a bihomogeneous family, and the enumeration is by words rather than by Gram matrices. We have not found the present family, or its census, in the literature; in particular Shapiro's monograph \cite{ShapiroBook}, which surveys the composition problem comprehensively, contains nothing of this bihomogeneous word-indexed shape---its treatment of nonbilinear phenomena (Hopf constructions, quadratic maps between spheres) concerns a different question. We would be glad to learn of antecedents beyond those cited.
+
+\section{Words, evaluations, and complex coordinates}\label{sec:setup}
+
+\subsection{Words}
+Let $W$ be the free monoid on the four letters $\alpha,\alpha^{-1},\beta,\beta^{-1}$. A word is \emph{reduced} if no letter is adjacent to its formal inverse. Reduced words are exactly the normal forms for elements of the free group $F_2=\langle\alpha,\beta\rangle$; we will pass between the two points of view freely, but we emphasize that our evaluation $h$ below is defined on $W$, \emph{not} on $F_2$: since $h(\alpha)h(\alpha^{-1})=t^2+u^2\ne1$, the map $h$ does not respect the group relations, and statements must be phrased for words.
+
+Three letterwise involutions act on $W$: $\ia$ inverts each $\alpha^{\pm1}$, $\ib$ inverts each $\beta^{\pm1}$, and their composite inverts every letter. Let $\rho$ reverse strings. All of these preserve reducedness, commute with one another, and $\rho$ commutes with the letterwise maps.
+
+\begin{definition}
+$S$ is the set of reduced words $\sigma$ with $\rho\,\ia(\sigma)=\sigma$: reading $\sigma$ backwards while inverting the $\alpha$-letters returns $\sigma$.
+\end{definition}
+
+The set $S$ is preserved by $\ia$ and by $\ib$ (for $\ib$: $\rho\ia$ commutes with $\ib$; for $\ia$: the condition $\rho\ia(\ia\sigma)=\ia\sigma$ unwinds to $\rho\sigma=\ia\sigma$, which is a restatement of $\sigma\in S$). Moreover, for $\sigma\in S$ the reduced word representing $\sigma^{-1}$ in $F_2$, namely $\rho$ applied to the letterwise inverse of $\sigma$, equals $\ib(\sigma)$. Inversion of symmetric words is thus already accounted for by $\ib$.
+
+\begin{lemma}[Bisection]\label{lem:bisect}
+Every $\sigma\in S$ factors uniquely as
+\[
+\sigma \;=\; v\cdot\beta^{\varepsilon}\cdot \ia\rho(v),
+\qquad \varepsilon\in\{1,-1,2,-2\},
+\]
+with $v$ a reduced word (possibly empty) not ending in $\beta^{-\operatorname{sgn}\varepsilon}$. Conversely every such pair $(v,\varepsilon)$ produces an element of $S$. In particular the number of $\alpha$-letters of any $\sigma\in S$ is even.
+\end{lemma}
+
+\begin{proof}
+Write $\ell$ for the length of $\sigma$ and number its letters $1,\dots,\ell$; the defining symmetry says letter $\ell+1-r$ is $\ia$(letter $r$). If $\ell$ is odd the middle letter $c$ satisfies $c=\ia(c)$, so $c\in\{\beta,\beta^{-1}\}$ and $\varepsilon=\pm1$. If $\ell$ is even the middle two letters are $c,\ia(c)$; reducedness rules out $c\in\{\alpha,\alpha^{-1}\}$ (which would give $\alpha\alpha^{-1}$ or $\alpha^{-1}\alpha$), leaving $\beta\beta$ or $\beta^{-1}\beta^{-1}$, so $\varepsilon=\pm2$. The prefix $v$ preceding the middle block is reduced, and the junction conditions at both ends of the block amount to the single condition stated (the right-hand junction asks that $\ia$ of the last letter of $v$ not cancel $\beta^{\operatorname{sgn}\varepsilon}$, which is the same condition, since $\ia$ fixes $\beta$-letters and moves $\alpha$-letters to $\alpha$-letters). The converse and the uniqueness are immediate. The $\alpha$-letters of $\sigma$ pair off under the symmetry, none being central; hence their number is even.
+\end{proof}
+
+We write $2m$ for the number of $\alpha$-letters and $n$ for the number of $\beta$-letters of $\sigma\in S$, and call $(m,n)$ the \emph{type} of $\sigma$.
+
+\subsection{Evaluations, real and complex}
+Let $R$ be a commutative ring and $\HH_A=A\oplus Ai\oplus Aj\oplus Ak$ the quaternion algebra over a commutative $R$-algebra $A$; $\bar p$ denotes the standard involution and $\N(p)=p\bar p$ the norm. Over $A=R[t,u,x,y,z]$ define the multiplicative map $h\colon W\to\HH_A$ on letters by
+\[
+h(\alpha^{\pm1})=t\pm iu,\qquad h(\beta^{\pm1})=x\pm(yj+zk).
+\]
+Since each letter has norm $t^2+u^2$ or $x^2+y^2+z^2$ and $\N$ is multiplicative,
+\begin{equation}\label{eq:norm-of-word}
+\N\bigl(h(\sigma)\bigr)=(t^2+u^2)^{2m}(x^2+y^2+z^2)^{n}\qquad\text{for }\sigma\text{ of type }(m,n).
+\end{equation}
+
+It clarifies both proofs and formulas to split off the subfield $\CC=R[i]$: write $\HH=\CC\oplus\CC j$, so that a quaternion is a pair $(z_1,z_2)$ of ``complex'' entries, with multiplication
+\begin{equation}\label{eq:CD}
+(z_1+z_2j)(z_3+z_4j)=(z_1z_3-z_2\bar z_4)+(z_1z_4+z_2\bar z_3)\,j .
+\end{equation}
+Introduce
+\[
+\zeta=t+iu,\qquad w=y+iz,
+\]
+so that $h(\alpha^{\pm1})=\zeta^{\pm}$ (meaning $\zeta$ or $\bz$) and $h(\beta^{\pm1})=x\pm wj$. Every $h(\sigma)$ is then computed inside $\CC[\zeta,\bz,x,w,\bw]$ by iterating \eqref{eq:CD}. A quaternion has vanishing $i$-coefficient exactly when its first complex entry $z_1$ is fixed by the conjugation $\zeta\leftrightarrow\bz$, $w\leftrightarrow\bw$; in that case, writing $z_1=f_1$ and $z_2=F=f_j+if_k$, the norm is
+\begin{equation}\label{eq:norm-complex}
+\N(z_1+z_2j)=f_1^2+F\bar F=f_1^2+f_j^2+f_k^2 .
+\end{equation}
+
+\section{The cancellation theorem}\label{sec:cancel}
+
+Define $\theta\colon\HH_A\to\HH_A$ by
+\[
+\theta(p)=i^{-1}\,\bar p\,i .
+\]
+
+\begin{lemma}\label{lem:theta}
+$\theta$ is an $A$-linear anti-involution with
+\[
+\theta(1,i,j,k)=(1,-i,j,k),
+\]
+so that $\theta(p)=p$ if and only if twice the $i$-coefficient of $p$ vanishes; in particular $\Fix(\theta)=A\oplus Aj\oplus Ak$ whenever $2$ is a non-zero-divisor in $A$. Moreover, for every word $\tau\in W$,
+\[
+\theta\bigl(h(\tau)\bigr)=h\bigl(\rho\,\ia(\tau)\bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+$\theta$ is a composite of the anti-automorphism $p\mapsto\bar p$ with the inner automorphism $p\mapsto i^{-1}pi$, hence an anti-automorphism; its square is conjugation by $\bar i\,i=\N(i)$, the identity. The values on $1,i,j,k$ are immediate ($\theta(j)=i^{-1}(-j)i=iji=j$, and likewise for $k$), giving the fixed module. For the intertwining: $\theta$ reverses products, fixes $h(\beta^{\pm1})\in A\oplus Aj\oplus Ak$, and swaps $h(\alpha)=t+iu$ with $h(\alpha^{-1})=t-iu$; so applying $\theta$ to $h(\tau)=h(\tau_1)\cdots h(\tau_\ell)$ yields $h(\ia\tau_\ell)\cdots h(\ia\tau_1)=h(\rho\ia\tau)$.
+\end{proof}
+
+\begin{theorem}[Cancellation]\label{thm:cancel}
+Let $R$ be any commutative ring and $\sigma\in S$. Then $h(\sigma)\in A\oplus Aj\oplus Ak$: the coefficient of $i$ in $h(\sigma)$ vanishes identically.
+\end{theorem}
+
+\begin{proof}
+$\theta(h(\sigma))=h(\rho\ia\sigma)=h(\sigma)$, so twice the $i$-coefficient of $h(\sigma)$ vanishes. Over $R=\ZZ$ the coefficient, an integer polynomial, therefore vanishes itself; the case of arbitrary $R$ follows by applying to this integer identity the ring homomorphism determined by the parameters $t,u,x,y,z$.
+\end{proof}
+
+\begin{proof}[Second proof, without reference to $2$]
+A word fixed by $\rho\ia$ is empty, a single $\beta$-letter, or of the form $c\,\sigma'\,\ia(c)$ with $\sigma'$ again fixed (the first and last letters correspond under the symmetry, as do the interiors). By induction it suffices to check that for each letter $c$ the map $p\mapsto h(c)\,p\,h(\ia c)$ preserves the vanishing of the $i$-coefficient. For $c=\alpha^{\pm1}$: $(t\pm iu)(p_0+p_2j+p_3k)(t\mp iu)=(t^2+u^2)p_0+(t\pm iu)^2(p_2j+p_3k)$, and multiplying $p_2j+p_3k$ by a complex number produces no $1$- or $i$-component. For $c=\beta^{\pm1}$, where $\ia(c)=c$: writing $v=h(c)=v_0+v_2j+v_3k$ and $p=p_0+p_2j+p_3k$, the $i$-coefficient of $v\,p\,v$ is
+\[
+(v_2p_3-v_3p_2)v_0+(v_0p_2+v_2p_0)v_3-(v_0p_3+v_3p_0)v_2=0 .
+\]
+These are polynomial identities with integer coefficients, so the argument is valid over every commutative ring directly; it is also the form of the theorem best suited to formal verification.
+\end{proof}
+
+\begin{remark}\label{rem:mu-nu}
+One can argue instead by comparing the automorphism $\mu\colon(i,j,k)\mapsto(-i,k,j)$ with the anti-automorphism $\nu\colon(i,j,k)\mapsto(i,k,j)$: each relates $h(\sigma)$ to the same transform of itself, and comparing the two conclusions yields $f_i=-f_i$. Since $\mu\nu=\theta$, this is the same symmetry as in the first proof, differently packaged; like the first proof it establishes $2f_i=0$ and closes through the universal case $R=\ZZ$. Only the second proof dispenses with $2$ altogether. In every formulation \eqref{eq:main-shape} is an identity of integer polynomials and specializes to every commutative ring, including those of characteristic $2$, where it degenerates gracefully.
+\end{remark}
+
+\begin{remark}
+In complex coordinates the theorem reads: for $\sigma\in S$ the first entry of the pair $h(\sigma)$, computed by iterating \eqref{eq:CD} from the letter values $\zeta^{\pm}$ and $x\pm wj$, is invariant under $\zeta\leftrightarrow\bz$, $w\leftrightarrow\bw$. This is the form in which the appendix tables should be read, and the form in which machine verification is performed.
+\end{remark}
+
+Combining Theorem~\ref{thm:cancel} with \eqref{eq:norm-of-word} and \eqref{eq:norm-complex}:
+
+\begin{corollary}\label{cor:identity}
+Each $\sigma\in S$ of type $(m,n)$ yields an identity
+\[
+I(\sigma):\qquad (t^2+u^2)^{2m}(x^2+y^2+z^2)^{n}=f_1^2+f_j^2+f_k^2
+\]
+with $f_1,f_j,f_k\in\ZZ[t,u,x,y,z]$ bihomogeneous of bidegree $(2m,n)$ in $(t,u)$ and $(x,y,z)$.
+\end{corollary}
+
+\begin{example}
+$\sigma=\alpha\beta\alpha^{-1}$: by \eqref{eq:CD}, $h(\sigma)=(\zeta,0)(x,w)(\bz,0)=(\zeta\bz x,\;\zeta^2w)$, recovering \eqref{eq:first} in the form $(\zeta\bz)^2(x^2+w\bw)=(\zeta\bz x)^2+(\zeta^2w)(\bz^2\bw)$. More generally $\alpha^m\beta^n\alpha^{-m}$ gives $f_1=(\zeta\bz)^m\,P_n$, $F=\zeta^{2m}\,Q_n\,w$, where $P_n,Q_n$ are the polynomials of the classical family for $(x^2+y^2+z^2)^n$ described in \S\ref{sec:transport}. The words that interleave $\alpha$'s and $\beta$'s---the first appearing at type $(1,3)$---leave this classical orbit; see the appendix.
+\end{example}
+
+\section{Structure of the identities}\label{sec:structure}
+
+\begin{proposition}[Parity]\label{prop:parity}
+For $\sigma\in S$, the polynomial $f_1$ is invariant, and $f_j,f_k$ are anti-invariant, under $(y,z)\mapsto(-y,-z)$. Thus every monomial of $f_1$ has even, and every monomial of $f_j,f_k$ odd, total degree in $(y,z)$.
+\end{proposition}
+
+\begin{proof}
+The substitution $(y,z)\mapsto(-y,-z)$ carries $h(\beta^{\pm1})$ to $h(\beta^{\mp1})$ and fixes $h(\alpha^{\pm1})$; hence it carries $h(\sigma)$ to $h(\ib\sigma)$. On the other hand $h(\ib\sigma)=i\,h(\sigma)\,i^{-1}$: conjugation by $i$ fixes $h(\alpha^{\pm1})$ and carries $h(\beta^{\pm1})$ to $h(\beta^{\mp1})$, and two multiplicative maps agreeing on letters agree on words. Since conjugation by $i$ fixes $1$ and negates $j,k$, we conclude $f_1\mapsto f_1$, $f_{j,k}\mapsto -f_{j,k}$ under the substitution.
+\end{proof}
+
+\begin{proposition}[Parity classification of the binary exponent]\label{prop:no-first-power}
+Let $a\ge1$ be odd and $n\ge1$, and write $c=t^2+u^2$, $s=x^2+y^2+z^2$.
+\begin{enumerate}
+\item[(i)] If $n$ is even, then $c^{a}s^{n}=\bigl(t\,c^{(a-1)/2}s^{n/2}\bigr)^2+\bigl(u\,c^{(a-1)/2}s^{n/2}\bigr)^2$ is a (degenerate) sum of two polynomial squares.
+\item[(ii)] If $n$ is odd, then $c^{a}s^{n}$ is not a sum of three squares in $\RR(t,u,x,y,z)$, let alone in $\RR[t,u,x,y,z]$.
+\end{enumerate}
+Thus the doubling of the exponent on $t^2+u^2$ in \eqref{eq:main-shape} is forced exactly when three squares are genuinely needed.
+\end{proposition}
+
+\begin{proof}
+(i) is displayed. For (ii), a three-square expression for $c^as^n$ in $\RR(t,u,x,y,z)$ yields one for $cs$ after division by the square of $c^{(a-1)/2}s^{(n-1)/2}$. By a theorem of Pfister \cite[Satz~3 and its Folgerung]{Pfister}, in the form given by Shapiro \cite[Prop.~14.6 and Thm.~14.8]{ShapiroBook}: over a field $F$ for which the $n$-dimensional unit form is anisotropic (such as $F=\RR$ with $n=3$), a rational-function formula $(x_1^2+x_2^2)(y_1^2+y_2^2+y_3^2)=z_1^2+z_2^2+z_3^2$ exists if and only if $2\circ3\le3$, where $\circ$ is the Stiefel--Hopf--Pfister function. But $2\circ3=4$, since $\binom{3}{2}$ is odd.
+\end{proof}
+
+\begin{remark}
+For the basic case $(a,n)=(1,1)$ there is an elementary alternative: decomposing hypothetical $f_i$ with $\sum f_i^2=cs$ into bihomogeneous components, the lexicographically extreme components must have bidegree $(1,1)$ (extreme squares cannot cancel in a sum of real squares), so the $f_i$ would be bilinear, say $(f_1,f_2,f_3)=(tA_1+uA_2)\mathbf{x}$ for real $3\times3$ matrices $A_1,A_2$. Comparing coefficients of $t^2$, $u^2$, and $tu$ forces $A_1,A_2$ orthogonal with $B:=A_1^{\mathsf T}A_2$ skew-symmetric; but a $3\times3$ matrix cannot be both orthogonal and skew-symmetric, its determinant being at once $\pm1$ and---from $\det B=\det B^{\mathsf T}=\det(-B)=-\det B$---zero. (This is the first case of the Hurwitz--Radon theorem, $\rho(3)=1$ \cite[Ch.~0, pp.~3--4]{ShapiroBook}.) Over $\mathbb{Q}$ the impossibility of a bilinear three-square identity goes back to Legendre (1830), via $3\cdot21=63$ (see \cite[Ch.~0]{ShapiroBook}).
+\end{remark}
+
+\begin{remark}\label{rem:nondegen}
+For $n$ odd, none of $f_1,f_j,f_k$ can vanish identically in any identity of shape \eqref{eq:main-shape}: if one vanished, $(x^2+y^2+z^2)^{n}$ would become, upon specializing $(t,u)=(1,0)$, a sum of two squares $A^2+B^2$ in $\RR[x,y,z]$; factoring $A^2+B^2=(A+iB)(A-iB)$ in the unique factorization domain $\CC[x,y,z]$, where $x^2+y^2+z^2$ is irreducible, forces $A-iB=\overline{(A+iB)}$ to be an associate of the same power of $x^2+y^2+z^2$ as $A+iB$, making $n$ even. (This is the mechanism of Wood's theorem on polynomial maps between spheres; see \cite[Ch.~15, Appendix]{ShapiroBook}.) Computationally, no $f$ vanishes in any identity through length $12$, for either parity of $n$.
+\end{remark}
+
+\section{Classical transport, equivariance, and the choice of $\theta$}\label{sec:transport}
+
+\subsection{Transport to pure-quaternion conjugation}
+The bisection lemma exhibits $h(\sigma)=q\,v\,\theta(q)$ with $q=h(v)$ and $v=h(\beta^{\varepsilon})$. Right multiplication by $i^{-1}$ intertwines $\theta$ with the standard involution: $\theta(p)\,i^{-1} = i^{-1}\bar p$, so
+\[
+h(\sigma)\,i^{-1}=q\,\bigl(v\,i^{-1}\bigr)\,\bar q .
+\]
+Since $v\in\RR\oplus\RR j\oplus\RR k$, the element $vi^{-1}$ is a \emph{pure} quaternion, and $p\mapsto qp\bar q$ is $\N(q)$ times the rotation by which the class of $q$ acts on pure quaternions. Thus every identity in the family is the classical mechanism---the double cover $\HH^\times\to\SO(3)$ acting on the pure part---applied with a \emph{word-valued} rotation $q=h(v)$, and transported from the pure coordinate frame $(i,j,k)$ to the frame $(1,j,k)$ by the unit $i$. The arithmetic exploitation of the mechanism is likewise classical, and sharper than mere precedent: Pall \cite[\S8]{Pall} proves that \emph{every} representation of $hm^2$ as a sum of three integer squares satisfying a mild local condition arises as $y=tx\bar t$ from a pure $x$ of norm $h$ and a $t$ of norm $m$; the integer specializations of the present family are thus not only anticipated but exhausted by the classical theory. The number-theoretic content of any single identity is therefore classical; the content of the family lies in which rotations arise, and Theorem~\ref{thm:inject} will show the words are faithfully recorded.
+
+\subsection{Torus equivariance}
+Let $c=e^{i\phi/2}$ be a unit complex number. Conjugation by $c$ fixes $\CC$ pointwise and, by \eqref{eq:CD}, sends $x+wj$ to $x+c^2w\,j$. Applying this to a word gives
+\[
+c\,h(\sigma)(\zeta,x,w)\,c^{-1}=h(\sigma)(\zeta,x,c^{2}w),
+\]
+whence $f_1$ is invariant under the phase rotation $w\mapsto e^{i\phi}w$ while $F$ transforms with weight one:
+\[
+F(\zeta,x,e^{i\phi}w)=e^{i\phi}F(\zeta,x,w).
+\]
+Equivalently, every monomial of $F$ has $w$-degree minus $\bw$-degree equal to $1$---visible throughout the appendix. Each identity is thus equivariant for the circle acting by rotation in the $(y,z)$-plane and on the pair $(f_j,f_k)$; the triples $(f_1,f_j,f_k)$ are matrix-coefficient combinations for this action. (No analogous statement holds for a circle acting on $(t,u)$: the letters $\alpha,\alpha^{-1}$ evaluate to $\zeta$ and $\bz$, which a phase rotation does not permute; and indeed the appendix rows mix powers of $\zeta$ and $\bz$.)
+
+\subsection{The subfamily $m=0$ and Chebyshev polynomials}
+For $\sigma=\beta^n$, the commutative subring $\RR[x,\omega]$ with $\omega=wj$, $\omega^2=-w\bw$, gives
+\[
+(x+wj)^n=P_n(x,w\bw)+Q_n(x,w\bw)\,wj,
+\qquad
+P_n+Q_n\,\tau=\prod\text{-expansion of }(x+\tau)^n\ \text{at}\ \tau^2=-w\bw,
+\]
+so that $P_n(x,r^2)=\operatorname{Re}(x+ir)^n$ and $r\,Q_n(x,r^2)=\operatorname{Im}(x+ir)^n$: the classical (Chebyshev-governed) identities for $(x^2+y^2+z^2)^n$. That every power of a sum of three squares is again a sum of three squares is a theorem of Catalan, with explicit identities for small powers---his cube identity (see \cite[Ch.~VII, pp.~267--268]{Dickson}) is the type-$(0,3)$ row of our family up to relabeling; the closed form via $\operatorname{Re}$ and $\operatorname{Im}$ appears to be folklore. The word construction embeds this family (as the $\alpha$-free words) and deforms it (as soon as $\alpha$'s interleave).
+
+\subsection{Which coordinate can be killed?}\label{subsec:classify}
+The proof of Theorem~\ref{thm:cancel} used only two properties of $\theta$: it is an anti-involution, and it interchanges $h(\alpha)$ with $h(\alpha^{-1})$ while fixing the $h(\beta^{\pm1})$. It is natural to ask what other involutions could serve, i.e., whether coordinates other than $i$ can be cancelled by symmetric words.
+
+\begin{proposition}\label{prop:classify}
+Over a field of characteristic $0$ (or $\RR$), every anti-automorphism of $\HH$ is the composite of the standard involution with an inner automorphism, and the involutive ones fall into exactly two classes:
+\begin{enumerate}
+\item[(a)] the standard involution $p\mapsto\bar p$, with fixed space the scalars;
+\item[(b)] the maps $p\mapsto v\,\bar p\,v^{-1}$ with $v$ a nonzero pure quaternion, with fixed space the span of $1$ and the plane of pure quaternions orthogonal to $v$.
+\end{enumerate}
+All involutions of class (b) are conjugate under inner automorphisms; $\theta$ is the case $v=i$. The analogue of the construction for class (a)---words $\sigma$ equal to their formal inverse-reversal, forcing $h(\sigma)$ scalar---produces only the trivial identities $\N(h(v))^2\cdot$(norm of middle letter) obtained by doubling. Hence, up to symmetry, the three-dimensional cancellation of \S\ref{sec:cancel} is the unique nontrivial instance of the mechanism.
+\end{proposition}
+
+\begin{proof}
+By Skolem--Noether every automorphism of $\HH$ is inner, and every anti-automorphism is $p\mapsto q\bar p q^{-1}$ for some $q\in\HH^\times$. Such a map is involutive iff $q\bar q^{-1}$ is central, i.e., iff $q$ is scalar (class (a)) or pure (class (b): if $q=v$ is pure then $\bar v=-v$ and the square of the map is conjugation by $v\bar v^{-1}=-1$, trivial). For pure $p$, $v\bar pv^{-1}=-vpv^{-1}=p$ iff $p$ anticommutes with $v$, i.e., $p\perp v$; this identifies the fixed spaces. Conjugacy of the class-(b) involutions follows from the transitivity of the rotation action on pure directions. For class (a): the condition on $\sigma$ says $\sigma$ equals the reduced word for $\sigma^{-1}$; writing $\sigma=v\,c\,\rho(v^{*})$ as in Lemma~\ref{lem:bisect} (with all four letters now inverted in the mirror) forces the middle letter to satisfy $c=c^{-1}$ formally, which no letter does, unless one allows the empty middle---i.e., $\sigma=v\cdot\rho(v^*)$, whose evaluation is $h(v)\overline{h(v)}=\N(h(v))$, a scalar, and whose ``identity'' is the trivial $\N^2=\N^2$.
+\end{proof}
+
+\subsection{A remark on the null conic}
+Setting $x^2+y^2+z^2=0$ defines a smooth conic $\cong\PP^1$ over $\CC$, on which each triple $(f_1:f_j:f_k)$, for fixed $(t,u)$, restricts to a self-map of the conic (the identity \eqref{eq:main-shape} says exactly that the image lies on the conic). These self-maps are equivariant for the torus of \S\ref{sec:transport} acting through rotation about the $i$-axis, and equivariant self-maps of $\PP^1$ are severely constrained (monomial in suitable coordinates). We have not pursued this, but note it as a possible independent route to the injectivity and census results of \S\ref{sec:census}: distinct words should give distinct degrees-with-twists on the conic.
+
+\section{The census}\label{sec:census}
+
+\subsection{Injectivity}
+
+\begin{theorem}\label{thm:inject}
+The map $h$ is injective on reduced words in $W$. Moreover, if $h(\sigma)=\lambda\,h(\sigma')$ for reduced words $\sigma,\sigma'$ and a scalar $\lambda\in\RR^\times$, then $\sigma=\sigma'$ and $\lambda=1$.
+\end{theorem}
+
+\begin{proof}
+Suppose $h(\sigma)=\lambda h(\sigma')$. Comparing norms via \eqref{eq:norm-of-word}, $\sigma$ and $\sigma'$ have the same type and $\lambda^2=1$, so $\lambda=\pm1$. Distinct reduced words represent distinct elements of $F_2$. Specialize
+\[
+(t,u,x,y,z)=(\sqrt2,\,1,\,\sqrt2,\,1,\,0),
+\]
+so that $h(\alpha)=\sqrt2+i$ and $h(\beta)=\sqrt2+j$, each of norm $3$. The conjugation action of $\sqrt2+i$ on pure quaternions is the rotation about the $i$-axis through the angle $\psi$ with $\cos\psi=2\cdot\frac23-1=\frac13$; likewise $\sqrt2+j$ rotates about the $j$-axis through $\arccos\frac13$. By Świerczkowski's theorem \cite{Swierczkowski}---two rotations through the angle $\arccos\frac13$ (the dihedral angle of the regular tetrahedron) about perpendicular axes generate a free group---these two rotations generate a free group; hence the induced homomorphism $F_2\to\SO(3)$ is injective, and distinct reduced words have distinct images. But real-proportional quaternions induce the \emph{same} rotation, so the specialized values of $h(\sigma)$ and $h(\sigma')$, being proportional, correspond to the same group element, forcing $\sigma=\sigma'$ in $F_2$ and hence as reduced strings. Finally $h(\sigma)=-h(\sigma)$ is impossible for a nonzero integral polynomial, so $\lambda=1$.
+\end{proof}
+
+\begin{remark}[A simplification of Świerczkowski's proof]\label{rem:swier-simpl}
+Świerczkowski's argument begins by conjugating the word so that it starts with a rotation about the first axis. This normalization can be dispensed with: tracking instead a starting row \emph{adapted to the first letter} of the word ($e_2$ for the first generator, which moves the $2,3$-plane; $e_1$ for the second), the $3$-scaled matrix product preserves rows of the shape $(d_1,d_2,\sqrt2\,d_3)$ with integer $d_i$, and a single four-case congruence invariant modulo $3$---carrying $3\nmid d_3$, divisibility by $3$ of the inert coordinate, and one companion congruence---propagates along every reduced word in one left-to-right pass. We have formally verified the theorem in this form (Remark~\ref{rem:verify}).
+\end{remark}
+
+\subsection{Identities up to sign}
+Two triples of polynomials determine ``the same'' identity when they determine the same multiset of three squares. As a first, coarser bookkeeping, call triples \emph{sign-equivalent} when they differ by a global sign and/or by the simultaneous negation of the last two entries:
+\[
+(f_1,f_j,f_k)\;\sim\;\pm(f_1,f_j,f_k),\ \pm(f_1,-f_j,-f_k).
+\]
+These are exactly the changes effected by the quaternion symmetries $p\mapsto\pm p$, $p\mapsto\pm ipi^{-1}$, which visibly preserve the construction; the finer sign changes and the transposition of $f_j$ with $f_k$ are treated in \S\ref{sec:fine}.
+
+\begin{theorem}\label{thm:census}
+Sign-equivalence classes of identities of type $(m,n)$ are in bijection with orbits of $\ib$ on the type-$(m,n)$ part of $S$; each orbit has size $2$, and the number of classes is
+\[
+c(m,n)=R\Bigl(m,\Bigl\lceil\tfrac n2\Bigr\rceil-1\Bigr),
+\qquad\text{where}\qquad
+\sum_{m,k\ge0}R(m,k)\,s^mq^k=\frac{1+s}{1-s-q-3sq}.
+\]
+\end{theorem}
+
+\begin{proof}
+\emph{Bijection.} For $\sigma\in S$, conjugation by $i$ gives $h(\ib\sigma)=ih(\sigma)i^{-1}=(f_1,-f_j,-f_k)$ (proof of Proposition~\ref{prop:parity}), so $\ib$-orbits map to sign-equivalence classes. Conversely, if the triples of $\sigma,\sigma'$ are sign-equivalent then $h(\sigma')=\pm h(\sigma)$ or $\pm ih(\sigma)i^{-1}=\pm h(\ib\sigma)$, and Theorem~\ref{thm:inject} forces $\sigma'\in\{\sigma,\ib\sigma\}$. Each orbit has size exactly $2$: $\ib\sigma=\sigma$ would require $\sigma$ free of $\beta$-letters, impossible since the middle block of Lemma~\ref{lem:bisect} is a $\beta$-power.
+
+\emph{Count.} By Lemma~\ref{lem:bisect}, elements of $S$ of type $(m,n)$ correspond to pairs $(v,\varepsilon)$: parity forces $|\varepsilon|\in\{1,2\}$ with $|\varepsilon|\equiv n\pmod 2$, the sign of $\varepsilon$ is free, and $v$ ranges over reduced words with $m$ letters from $\{\alpha,\alpha^{-1}\}$ and $k=(n-|\varepsilon|)/2$ letters from $\{\beta,\beta^{-1}\}$, not ending in $\beta^{-\operatorname{sgn}\varepsilon}$. The two sign choices give equinumerous sets (exchanged by $\ib$ applied to $v$), so $|S(m,n)|=2R(m,k)$ with $R(m,k)$ the number of reduced words with $m$ $\alpha$-letters and $k$ $\beta$-letters not ending in $\beta^{-1}$, and $k=\lceil n/2\rceil-1$. Dividing by the orbit size $2$ gives $c(m,n)=R(m,k)$.
+
+\emph{Generating function.} Grade letters $\alpha^{\pm1}$ by $s$ and $\beta^{\pm1}$ by $q$. Let $g$ (resp.\ $h'$) be the generating function for nonempty reduced words ending in a fixed one of $\alpha,\alpha^{-1}$ (resp.\ $\beta,\beta^{-1}$); by the symmetry inverting all letters these depend only on the letter class. Appending a final letter to any reduced word not ending in that letter's inverse,
+\[
+g=s\,(1+g+2h'),\qquad h'=q\,(1+2g+h').
+\]
+Solving, $h'=q(1+s)/(1-s-q-3sq)$, and the reduced words not ending in $\beta^{-1}$ are counted by $1+2g+h'$, which simplifies to $(1+s)/(1-s-q-3sq)$.
+\end{proof}
+
+\begin{corollary}[Growth]\label{cor:growth}
+\begin{enumerate}
+\item[(i)] $c(m,2k+1)=c(m,2k+2)$ for all $k\ge0$: the counts advance in equal steps of two in $n$.
+\item[(ii)] $R(1,k)=4k+2$; hence $c(1,n)=2n$ for $n$ odd and $2n-2$ for $n$ even.
+\item[(iii)] For fixed $m$, extracting $[q^k]$ first gives $R(m,k)=[s^m]\,(1+s)(1+3s)^k(1-s)^{-(k+1)}$, a polynomial in $k$ of degree $m$ with leading coefficient $4^m/m!$; thus $c(m,n)$ grows like $\frac{2^m}{m!}n^m$ for fixed $m$. For example $R(2,k)=8k^2+4k+2$.
+\item[(iv)] Along the diagonal, $R(k,k)^{1/k}\to\min_{0<s<1}\frac{1+3s}{s(1-s)}=9$ (attained at $s=\frac13$); the count is exponential only when $m$ grows in proportion to $n$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+(i) is the ceiling in Theorem~\ref{thm:census}. (ii), (iii): expand $(1+s)(1+3s)^k(1-s)^{-(k+1)}$; the coefficient of $s^m$ is $\sum_{a+b\le m}$ of products of binomials $\binom ka3^a\binom{k+b}b$ (with the $(1+s)$ shift), a polynomial in $k$ of degree $m$ whose top term is $k^m\sum_{a+b=m}\frac{3^a}{a!\,b!}=\frac{(3+1)^m}{m!}k^m$. (iv) is the standard exponential-rate computation for $[s^k]H(s)^k$ with $H(s)=(1+3s)/(1-s)$: the rate is $\inf_{0<s<1}H(s)/s$, and calculus locates the infimum at $s=\frac13$ with value $9$.
+\end{proof}
+
+\begin{center}
+\begin{tabular}{c|cccccccc}
+$c(m,n)$ & $n{=}1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ & $8$\\
+\hline
+$m{=}0$ & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1\\
+$1$ & 2 & 2 & 6 & 6 & 10 & 10 & 14 & 14\\
+$2$ & 2 & 2 & 14 & 14 & 42 & 42 & 86 & 86\\
+$3$ & 2 & 2 & 22 & 22 & 106 & 106 & 318 & 318\\
+$4$ & 2 & 2 & 30 & 30 & 202 & 202 & 838 & 838
+\end{tabular}
+\end{center}
+
+\smallskip
+The contrast between rows and diagonals deserves emphasis: for fixed $m$ the counts grow polynomially in $n$ (linearly for $m=1$), while the diagonal entries $1, 6, 42, 318,\dots$ grow exponentially. A glance at the table could suggest exponential growth in $m+n$; the generating function shows this impression is correct only along diagonals.
+
+\subsection{Fine equivalence}\label{sec:fine}
+The finest natural equivalence identifies triples with the same multiset $\{f_1^2,f_j^2,f_k^2\}$, i.e., allows independent sign changes and permutations. By Proposition~\ref{prop:parity}, $f_1$ has even and $f_j,f_k$ odd $(y,z)$-parity, so (nondegeneracy granted) a permutation can only transpose $f_j$ with $f_k$. The independent sign changes and the transposition are effected by conjugating $h(\sigma)$ by units in $\{1,i,j,k\}$ and by $\frac{j+k}{\sqrt2}$; each such conjugation carries the letter values to letter values \emph{of a substituted variable system} (for instance conjugation by $j$ fixes $x+yj+zk$ only after $z\mapsto-z$), and the arguments of Theorem~\ref{thm:census} then localize any possible coincidence:
+
+\begin{proposition}\label{prop:fine}
+Under the finest equivalence, distinct sign-equivalence classes of type $(m,n)$ can coincide only in pairs $\{\sigma\},\{\ia\sigma\}$, and only if $\sigma$ contains equally many $\beta$ and $\beta^{-1}$ letters; in particular $n$ must be even. Hence for $n$ odd the fine count equals $c(m,n)$, and for $n$ even it lies between $\tfrac12c(m,n)$ and $c(m,n)$.
+\end{proposition}
+
+\begin{proof}
+Suppose the triples of $\sigma,\sigma'\in S$ agree up to signs and the transposition. As noted, the sign patterns and the transposition are realized by $p\mapsto \pm g p g^{-1}$ with $g\in\{1,i,j,k,\tfrac{j+k}{\sqrt2},\dots\}$; composing with the analysis already done for $g\in\{1,i\}$, the remaining cases give an equation of the form
+\begin{equation}\label{eq:residual}
+h(\sigma')\;=\;\pm\,h(\ia\sigma)\big|_{\text{sub}},
+\end{equation}
+where ``sub'' is one of the substitutions $z\mapsto-z$, $y\mapsto-y$, $y\leftrightarrow z$, or $(y,z)\mapsto(z,-y)$ (compositions of the reflection and rotation of the $w$-plane induced by the conjugations). Specializing \eqref{eq:residual} at a point fixed by the substitution and at which the pair of rotations is free---$(\sqrt2,1,\sqrt2,1,0)$ for the substitutions fixing $z=0$, and $(\sqrt2,1,2,1,1)$ (norms $3$ and $6$, angles again $\arccos\frac13$, axes $i$ and the perpendicular $(0,1,1)$; Świerczkowski's theorem, being stated for arbitrary perpendicular axes, applies directly) for $y\leftrightarrow z$---forces, as in Theorem~\ref{thm:inject}, the word equation $\sigma'=\ia\sigma$, whereupon \eqref{eq:residual} becomes a symmetry requirement on the single polynomial quaternion $h(\sigma')$.
+
+To constrain that requirement, set $u=0$. Each $\alpha$-letter evaluates to the central element $t$, and the $\beta$-letters evaluate to the commuting elements $x\pm wj$ (they commute since both lie in $\RR[x,wj]$ with $(wj)^2=-w\bw$ central); hence
+\[
+h(\tau)\big|_{u=0}=t^{2m}\,(x+wj)^p\,(x-wj)^q,\qquad p+q=n,
+\]
+where $p,q$ count the $\beta,\beta^{-1}$ letters of $\tau$. If $p\neq q$, comparing the coefficients of $x^{n-1}$ on the two sides of \eqref{eq:residual} at $u=0$ gives $(p-q)\,w=\pm(p-q)\,w'$, with $w'$ the image of $w$ under the substitution ($\bw$, $-\bw$, $i\bw$, or $-iw$); since $w$ is not a scalar multiple of $\bw$, and $w=\pm iw$ is impossible over $\RR$, the substitution must be trivial---contradiction. So any residual coincidence requires $p=q$.
+
+(The case $(y,z)\mapsto(z,-y)$, i.e.\ $w\mapsto -iw$: here the same comparison gives $w = \mp i w$, impossible outright, so this substitution never occurs, balanced or not.)
+
+For $n$ odd, $p\ne q$ always, so no coincidence beyond sign-equivalence occurs and the fine count is exactly $c(m,n)$.
+\end{proof}
+
+\begin{theorem}[Freeness for the three coordinate axes]\label{thm:rank3}
+The rotations through $\arccos\frac13$ about the three coordinate axes generate a free group of rank three.
+\end{theorem}
+
+\begin{proof}
+Scale each rotation by $3$, so that the generators and their inverses are the six integer--$\sqrt2$ matrices with diagonal block $\bigl(\begin{smallmatrix}1&\mp2\sqrt2\\\pm2\sqrt2&1\end{smallmatrix}\bigr)$ in the moving plane and $3$ in the fixed slot. Reduce modulo $3$, working in $\mathbb F_9=\mathbb F_3(\sqrt2)$ (the prime $3$ is inert in $\ZZ[\sqrt2]$, since $2$ is not a square modulo $3$). Each scaled generator becomes a matrix of rank one: its $2\times2$ block has determinant $1+8=9\equiv0$, while the block itself is nonzero. A product of rank-one matrices $M_1\cdots M_n$ equals the outer product of the column of $M_1$ with the row of $M_n$, multiplied by the scalars $r_i c_{i+1}$ pairing the row of each factor with the column of the next; it vanishes if and only if some such junction scalar vanishes. For the six generators there are thirty junctions compatible with reducedness (all ordered pairs except a generator followed by its own inverse), and each scalar is a unit modulo $3$: same-generator junctions give $\pm(\mathrm{trace})=\mp1$, and cross junctions pair the two $\pm2\sqrt2$ entries meeting in the shared coordinate, giving $\pm8\equiv\pm1$ --- a finite verification. Hence for every nonempty reduced word the scaled product is nonzero modulo $3$, while the scaled identity $3^n\cdot I$ vanishes modulo $3$ for $n\ge1$; so no nonempty reduced word represents the identity rotation.
+\end{proof}
+
+\begin{remark}
+The proof refines the odd-modulus half of Świerczkowski's method: his tracking of $d_2$ modulo the odd part of $b$ \cite{Swierczkowski1994} is, in coordinates, the statement that the scaled generators are rank one there and that consecutive factors mesh. The refinement is the observation that the meshing is a purely local, finite condition, indifferent to the number of coordinate-axis generators; the same verification yields freeness for the rotations about all three axes, and more generally at any angle $\arccos\frac ab$ (in lowest terms) whose denominator has an odd prime factor. The dyadic angles $b=2^m$, where his argument requires the delicate valuation bookkeeping, are not covered and are not needed here.
+\end{remark}
+
+\begin{corollary}\label{cor:fine-complete}
+Under the finest equivalence, no two distinct sign-equivalence classes of type $(m,n)$ are identified by any of the sign patterns; identification could occur only through the transposition of $f_j$ with $f_k$, only between the classes of $\sigma$ and $\ia\sigma$ with $\sigma$ balanced, and only if $f_j(\sigma)$ is symmetric or antisymmetric under the interchange of $y$ and $z$.
+\end{corollary}
+
+\begin{proof}
+By the proof of Proposition~\ref{prop:fine} the sign-pattern cases reduce to a symmetry requirement $h(\sigma')=\pm h(\sigma')|_{z\mapsto-z}$ (or $y\mapsto-y$) on a single word. Specialize at $(\sqrt2,1,2,1,1)$: the substitution carries the second generator to the rotation about the axis $(0,1,-1)$, and the three axes $e_1$, $(0,1,1)$, $(0,1,-1)$ are mutually orthogonal, so by Theorem~\ref{thm:rank3} (transported by a frame rotation) the three rotations through $\arccos\frac13$ about them generate a free group $\Gamma_3$ on generators $A,B,\widetilde B$. The specialized requirement equates a reduced word over $\{A^{\pm1},B^{\pm1}\}$ with a reduced word over $\{A^{\pm1},\widetilde B^{\pm1}\}$; in a free group, equal reduced words are letterwise identical, so both words use the letters $A^{\pm1}$ only. But every word of $S$ contains $\beta$-letters (its middle block), a contradiction. The transposition case survives this argument only through the substitution $y\leftrightarrow z$, whose residual condition, by the relation $f_k(\sigma)=f_j(\sigma)|_{y\leftrightarrow z,\,u\mapsto-u}$, amounts to the stated symmetry of $f_j(\sigma)$.
+\end{proof}
+
+\begin{conjecture}\label{conj:exact}
+No word of $S$ has $f_j$ symmetric or antisymmetric under the interchange of $y$ and $z$; consequently the fine count equals $c(m,n)$ for all $(m,n)$. We have verified this by machine for all words through length $12$.
+\end{conjecture}
+
+\begin{remark}
+The fine-equivalence question has an exact integer-level antecedent: Pall \cite[Lemma 20, Theorem 8]{Pall} determines when a quaternion obtained from a pure $x$ by sign-changes and interchanges of coordinates is reachable as $tx\bar t/\N(t)$, with explicit binary quadratic forms effecting the coordinate permutations. The polynomial question treated here is the word-level refinement of his.
+\end{remark}
+
+\section{Generalizations, specializations, and questions}\label{sec:general}
+
+\subsection{More letters}
+Let $W_{r,s}$ be the free monoid on letters $\alpha_1^{\pm1},\dots,\alpha_r^{\pm1},\beta_1^{\pm1},\dots,\beta_s^{\pm1}$, evaluated by
+\[
+h(\alpha_a^{\pm1})=t_a\pm iu_a,\qquad h(\beta_b^{\pm1})=x_b\pm(y_bj+z_bk),
+\]
+and let $S_{r,s}$ be the reduced words fixed by reversal composed with inversion of all $\alpha$-letters. Lemma~\ref{lem:theta} and Theorem~\ref{thm:cancel} apply verbatim---$\theta$ fixes every $h(\beta_b^{\pm1})$ and exchanges each $h(\alpha_a)$ with $h(\alpha_a^{-1})$---so each $\sigma\in S_{r,s}$ yields
+\[
+\prod_{a=1}^{r}(t_a^2+u_a^2)^{2m_a}\;\prod_{b=1}^{s}(x_b^2+y_b^2+z_b^2)^{n_b}\;=\;f_1^2+f_j^2+f_k^2,
+\]
+with every $\alpha_a$-exponent even (the letters $\alpha_a$ pair off across the middle as in Lemma~\ref{lem:bisect}, whose proof is unchanged: the middle block is a power of a single $\beta_b$). Theorem~\ref{thm:inject} extends by choosing rotations about axes in general position (freeness for generic tuples reduces to the two-generator case by specialization); the census becomes a transfer-matrix computation on $2r+2s$ letters which we do not carry out here.
+
+\subsection{Clifford algebras}
+The mechanism has an evident Clifford-theoretic template: in the Clifford algebra of a quadratic space, the transpose anti-involution has a large fixed space, the norm is multiplicative on the Clifford group, and conjugation implements $\mathrm{O}(k)$ on vectors. Words in suitable generators, symmetrized as here, should produce sum-of-$N$-squares identities for products of quadratic forms with $N$ the dimension of an appropriate fixed space. Whether anything arises beyond restatements of the spin representation theory---in particular, whether any \emph{census} phenomenon of the present kind persists---we leave open.
+
+\subsection{Integer specializations}
+Specializing \eqref{eq:main-shape} at integers gives constructive access to representations: whenever $c=t^2+u^2$ and $N=x^2+y^2+z^2$, the integer $c^{2m}N^{n}$ is represented by the specialized triple, compatibly with the classical theorem of Legendre and Gauss. We caution against expecting more, and can now say precisely why: by Pall's theorem \cite[\S8]{Pall}, every representation of $hm^2$ satisfying his local condition already has the form $tx\bar t$, so at the level of integers the family produces nothing outside the classical quaternionic parametrization; and projectively the polynomial maps of the family scale the ternary form by $(t^2+u^2)^{2m}$, landing in the rational orthogonal group of $x^2+y^2+z^2$---parametrized by quaternions in Pall's companion work on the rational automorphs of $x_1^2+x_2^2+x_3^2$ (announced in \cite{Pall})---where questions of transitivity on representations are the province of spinor genus theory and are settled by other means. The one Diophantine remark the family does make cleanly: the rotations reached by words are exactly those rational rotations whose denominators are norms arising from the specialized letters---a parametrized subgroup, not the full rational orthogonal group.
+
+\subsection{Questions}
+\begin{question}
+Does any word of $S$ have $f_j$ symmetric or antisymmetric under the interchange of $y$ and $z$ (Conjecture~\ref{conj:exact})? Equivalently: does any identity of the family contain a repeated square, up to the symmetries of the construction?
+\end{question}
+\begin{question}
+Does the restriction-to-the-null-conic map of \S\ref{sec:transport} separate words, giving a census proof independent of free rotation groups?
+\end{question}
+\begin{question}
+In the Clifford setting, for which quadratic spaces does an exact word census survive?
+\end{question}
+
+\begin{remark}[Verification]\label{rem:verify}
+All identities displayed or tabulated in this paper were generated symbolically from their words and verified against Theorem~\ref{thm:cancel} and \eqref{eq:norm-of-word} by machine; the census values through length $12$ were computed by exhaustive enumeration and canonicalization under the fine equivalence. Beyond this, the mathematical core of the paper has been formally verified in Lean~4 against Mathlib, over an arbitrary commutative ring where so stated: Theorem~\ref{thm:cancel} (by the second proof) and Corollary~\ref{cor:identity}; the evenness of the $\alpha$-count; Proposition~\ref{prop:parity}; the $[2,3,3]$ obstruction of the remark following Proposition~\ref{prop:no-first-power}; Świerczkowski's freeness theorem for the $\arccos\frac13$ pair, in the simplified form of Remark~\ref{rem:swier-simpl}; Theorem~\ref{thm:inject}, at the level of the generic polynomial evaluation and up to sign; Theorem~\ref{thm:census} in full---the classification of identities up to sign-equivalence, the bisection, the identity $|S(m,n)|=2R(m,\lceil n/2\rceil-1)$ with the recurrence for $R$ and its closed forms for $m\le2$, the count of classes as a single statement, and kernel-checked enumeration instances through length $7$; and Theorem~\ref{thm:rank3}, by the mesh argument exactly as printed, from which Świerczkowski's theorem for the pair is re-derived as a corollary, so that the freeness of the pair carries two independent machine-checked proofs. The formalization comprises ninety-one theorems in four files, with no unverified assumptions beyond the standard axioms of Mathlib; it and all scripts are available from the author.
+\end{remark}
+
+\appendix
+
+\section{Tables of identities in complex coordinates}\label{app:tables}
+
+Recall the dictionary: $\zeta=t+iu$, $w=y+iz$, quaternions are pairs $z_1+z_2j$ with the multiplication \eqref{eq:CD}, and the letters evaluate to
+\[
+h(\alpha^{\pm1})=\zeta^{\pm}\ (\text{i.e.}\ \zeta\ \text{or}\ \bz),\qquad h(\beta^{\pm1})=x\pm wj .
+\]
+For $\sigma\in S$ of type $(m,n)$ we tabulate $f_1=z_1$ (a real polynomial: invariant under $\zeta\leftrightarrow\bz$, $w\leftrightarrow\bw$) and $F=z_2=f_j+if_k$; the identity reads
+\[
+(\zeta\bz)^{2m}\,(x^2+w\bw)^{n}\;=\;f_1^{\,2}+F\bar F .
+\]
+To recover the real form, substitute $\zeta=t+iu$, $w=y+iz$ and take $f_j=\operatorname{Re}F$, $f_k=\operatorname{Im}F$.
+
+Each table lists one representative per mirror pair: the involution $\ia$ (equivalently, the substitution $u\mapsto-u$, i.e.\ $\zeta\leftrightarrow\bz$ in the formulas) carries each row to a distinct identity of the same type, its \emph{mirror}, which we do not print. The involution $\ib$ (the substitution $w\mapsto-w$ together with $F\mapsto-F$... more precisely $(f_1,f_j,f_k)\mapsto(f_1,-f_j,-f_k)$) gives the sign-equivalent partner and is likewise suppressed. The $m=0$ family $\beta^n$ is described in closed form in \S\ref{sec:transport} and omitted. Note in every row the weight-one structure of $F$ (each monomial has $w$-degree minus $\bw$-degree equal to $1$) promised in \S\ref{sec:transport}.
+
+\input{appendix_rows.tex}
+
+\begin{thebibliography}{99}
+
+\bibitem{Dickson} L.~E. Dickson, \emph{History of the Theory of Numbers, Vol.~II: Diophantine Analysis}, Carnegie Institution, Washington, 1920.
+
+\bibitem{Hurwitz} A.~Hurwitz, \"Uber die Komposition der quadratischen Formen von beliebig vielen Variabeln, \emph{Nachr. Ges. Wiss. G\"ottingen} (1898), 309--316.
+
+\bibitem{HurwitzMA} A.~Hurwitz, \"Uber die Komposition der quadratischen Formen, \emph{Math. Ann.} \textbf{88} (1923), 1--25.
+
+\bibitem{Radon} J.~Radon, Lineare Scharen orthogonaler Matrizen, \emph{Abh. Math. Sem. Univ. Hamburg} \textbf{1} (1922), 1--14.
+
+\bibitem{Pall} G.~Pall, On the arithmetic of quaternions, \emph{Trans. Amer. Math. Soc.} \textbf{47} (1940), 487--500.
+
+\bibitem{Pfister} A.~Pfister, Zur Darstellung von $-1$ als Summe von Quadraten in einem K\"orper, \emph{J. London Math. Soc.} \textbf{40} (1965), 159--165.
+
+\bibitem{PRSS} V.~Powers, B.~Reznick, C.~Scheiderer, F.~Sottile, A new approach to Hilbert's theorem on ternary quartics, \emph{C. R. Acad. Sci. Paris, Ser.~I} \textbf{339} (2004), 617--620.
+
+\bibitem{PSV} D.~Plaumann, B.~Sturmfels, C.~Vinzant, Quartic curves and their bitangents, \emph{J. Symbolic Comput.} \textbf{46} (2011), 712--733.
+
+\bibitem{ShapiroBook} D.~B. Shapiro, \emph{Compositions of Quadratic Forms}, de Gruyter Expositions in Mathematics 33, Walter de Gruyter, Berlin, 2000.
+
+\bibitem{ShapiroSurvey} D.~B. Shapiro, Products of sums of squares, \emph{Exposition. Math.} \textbf{2} (1984), 235--261.
+
+\bibitem{Swierczkowski} S.~\'Swierczkowski, On a free group of rotations of the Euclidean space, \emph{Indag. Math.} \textbf{20} (1958), 376--378.
+
+\bibitem{Swierczkowski1994} S.~\'Swierczkowski, A class of free rotation groups, \emph{Indag. Math. (N.S.)} \textbf{5} (1994), 221--226.
+
+\end{thebibliography}
+
+\end{document}

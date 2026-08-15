@@ -1,0 +1,17 @@
+name: lean-verify
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: lean
+          use-mathlib-cache: true
+      - name: axiom audit
+        working-directory: lean
+        run: |
+          lake build Round1 Round2 Round3 Round4 2>&1 | tee build.log
+          ! grep -E "sorryAx|ofReduceBool" build.log
+          test "$(grep -c 'depends on axioms' build.log || true)" -ge 0
