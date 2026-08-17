@@ -1,5 +1,5 @@
 name = "RequestProject"
-defaultTargets = ["Round1", "Round2", "Round3", "Round4"]
+defaultTargets = ["Round1", "Round2", "Round3", "Round4", "AxiomCheck"]
 
 [[require]]
 name = "mathlib"
@@ -21,3 +21,7 @@ globs = ["Round3"]
 [[lean_lib]]
 name = "Round4"
 globs = ["Round4"]
+
+[[lean_lib]]
+name = "AxiomCheck"
+globs = ["AxiomCheck"]

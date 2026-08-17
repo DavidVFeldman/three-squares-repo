@@ -21,8 +21,7 @@ rank three, by a rank-one-modulo-3 refinement of Świerczkowski's method.
 ## Formal verification
 
 `lean/` contains a Lean 4 formalization, checked against Mathlib: 91 theorems
-in four files, produced in four commissioned rounds (work orders and reports in
-`docs/`). Closure standard throughout: every theorem compiles with
+in four files, produced in four commissioned rounds (verification reports in `docs/`). Closure standard throughout: every theorem compiles with
 `#print axioms` showing at most `propext`, `Classical.choice`, `Quot.sound`;
 no `sorry`; no `native_decide`. Machine-checked contents include:
 
@@ -40,6 +39,26 @@ no `sorry`; no `native_decide`. Machine-checked contents include:
   classes-count capstone: numClasses m n = R(m, ceil(n/2)-1)  (`Round4.lean`).
 
 To check: `cd lean && lake build`. CI runs the build and asserts the axiom audit.
+
+## License
+
+The paper (`paper/`) is CC BY 4.0; the Lean formalization and scripts are
+Apache 2.0 (see `LICENSE` and `LICENSE-CODE`).
+
+## Citation
+
+See `CITATION.cff`, or:
+
+```bibtex
+@software{Feldman_three_squares,
+  author  = {Feldman, David Victor},
+  title   = {Polynomial identities, sums of three squares, and
+             quaternionic (anti-)automorphisms},
+  year    = {2026},
+  doi     = {10.5281/zenodo.21943651},
+  url     = {https://github.com/DavidVFeldman/three-squares-repo}
+}
+```
 
 ## Scripts
 

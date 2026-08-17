@@ -28,12 +28,16 @@
 \DeclareMathOperator{\N}{N}
 \DeclareMathOperator{\Rot}{R}
 
+\newcommand\blfootnote[1]{\begingroup\renewcommand\thefootnote{}\footnote{#1}\addtocounter{footnote}{-1}\endgroup}
+
 \title{Polynomial identities, sums of three squares,\\ and quaternionic (anti-)automorphisms}
-\author{David V. Feldman\\ \small University of New Hampshire}
-\date{}
+\author{David Victor Feldman\\ \small Department of Mathematics and Statistics, University of New Hampshire\\ \small \texttt{dvfinnh@gmail.com}}
+\date{August 2026}
 
 \begin{document}
 \maketitle
+\blfootnote{\emph{2020 Mathematics Subject Classification.} 11E25 (primary); 05A15, 12D15, 15A63, 20E05, 68V20 (secondary).}
+\blfootnote{\emph{Key words and phrases.} Sums of three squares; composition of quadratic forms; quaternions; free rotation groups; free monoids; generating functions; formal verification.}
 
 \begin{abstract}
 Evaluating words in a free monoid at the quaternions $t+iu$ and $x+yj+zk$, we show that every word fixed by the composition of string reversal with inversion of the $\alpha$-letters evaluates to a quaternion with vanishing $i$-coefficient, and hence yields a polynomial identity
@@ -53,14 +57,14 @@ in quaternionic terms, conjugating $i$ by a quaternion $q$ produces a pure quate
 \begin{equation}\label{eq:first}
 (t^2+u^2)^2\,(x^2+y^2+z^2)\;=\;\bigl((t^2+u^2)x\bigr)^2+\bigl((t^2-u^2)y-2tuz\bigr)^2+\bigl((t^2-u^2)z+2tuy\bigr)^2,
 \end{equation}
-which expresses a product of quadratic forms in \emph{independent} variables as a sum of three polynomial squares. (We have not found \eqref{eq:first} itself in Dickson's chapter or elsewhere, though it is elementary; we would be glad to learn of an appearance.) Two features of \eqref{eq:first} deserve notice. First, the identity is not bilinear: the first factor enters through the \emph{square} of $t^2+u^2$, and the polynomials on the right are not bilinear in the two groups of variables. Second, neither feature can be repaired. By the Hurwitz--Radon theory of compositions of quadratic forms \cite{Hurwitz, HurwitzMA, Radon, ShapiroBook, ShapiroSurvey}, no identity of size $[2,3,3]$ or $[3,3,3]$ exists over any field of characteristic $\ne 2$---consistently, the classical product identities of the shape $(a^2+b^2+c^2)(p^2+q^2+r^2)=\square+\square+\square$ recorded by Dickson (Weddle, Young, Catalan; \cite[Ch.~VII, pp.~263, 269]{Dickson}) all hold only under constraints binding the two sets of variables---and, much more strongly, a theorem of Pfister \cite{Pfister} implies that $(t^2+u^2)^{a}(x^2+y^2+z^2)^{n}$ with $a$ and $n$ odd is not a sum of three squares even in $\RR(t,u,x,y,z)$ (Proposition~\ref{prop:no-first-power}). The doubling of the exponent in \eqref{eq:first} is forced.
+which expresses a product of quadratic forms in \emph{independent} variables as a sum of three polynomial squares. (Identity \eqref{eq:first}, though elementary, does not appear in Dickson's chapter, and we have not located it elsewhere.) The identity is not bilinear: the first factor enters through the \emph{square} of $t^2+u^2$, and the polynomials on the right are not bilinear in the two groups of variables; neither feature can be repaired. By the Hurwitz--Radon theory of compositions of quadratic forms \cite{Hurwitz, HurwitzMA, Radon, ShapiroBook, ShapiroSurvey}, no identity of size $[2,3,3]$ or $[3,3,3]$ exists over any field of characteristic $\ne 2$---consistently, the classical product identities of the shape $(a^2+b^2+c^2)(p^2+q^2+r^2)=\square+\square+\square$ recorded by Dickson (Weddle, Young, Catalan; \cite[Ch.~VII, pp.~263, 269]{Dickson}) all hold only under constraints binding the two sets of variables---and, much more strongly, a theorem of Pfister \cite{Pfister} implies that $(t^2+u^2)^{a}(x^2+y^2+z^2)^{n}$ with $a$ and $n$ odd is not a sum of three squares even in $\RR(t,u,x,y,z)$ (Proposition~\ref{prop:no-first-power}). The doubling of the exponent in \eqref{eq:first} is forced.
 
 This paper studies the natural habitat of \eqref{eq:first}: a family of identities
 \begin{equation}\label{eq:main-shape}
 (t^2+u^2)^{2m}\,(x^2+y^2+z^2)^{n}\;=\;f_1^2+f_j^2+f_k^2,
 \qquad f_1,f_j,f_k\in\ZZ[t,u,x,y,z],
 \end{equation}
-indexed by words in a free monoid. Write $h$ for the evaluation sending the letters $\alpha,\alpha^{-1},\beta,\beta^{-1}$ to the quaternions
+indexed by words in a free monoid. Let $h$ be the evaluation sending the letters $\alpha,\alpha^{-1},\beta,\beta^{-1}$ to the quaternions
 \[
 h(\alpha)=t+iu,\quad h(\alpha^{-1})=t-iu,\quad h(\beta)=x+yj+zk,\quad h(\beta^{-1})=x-yj-zk,
 \]
@@ -75,7 +79,7 @@ Individually, these identities are classical in mechanism if not in statement: w
 \[
 \sum_{m,k\ge 0} c(m,2k+1)\, s^m q^k \;=\;\frac{1+s}{1-s-q-3sq},\qquad c(m,2k+2)=c(m,2k+1).
 \]
-In particular $c(1,n)$ equals $2n$ for $n$ odd and $2n-2$ for $n$ even; for each fixed $m$ the count grows as a polynomial of degree $m$ in $n$; and along the diagonal $c(k,2k+1)^{1/k}\to 9$. The growth is thus emphatically \emph{not} exponential in $m+n$: rows grow polynomially, and only diagonals grow exponentially.
+In particular $c(1,n)$ equals $2n$ for $n$ odd and $2n-2$ for $n$ even; for each fixed $m$ the count grows as a polynomial of degree $m$ in $n$; and along the diagonal $c(k,2k+1)^{1/k}\to 9$. The growth is not exponential in $m+n$: rows grow polynomially; only diagonals grow exponentially.
 \item[(iv)] \textbf{Fine equivalence} (\S\ref{sec:fine}). Allowing also permutations of the three squares, a parity invariant shows only the transposition of $f_j$ with $f_k$ is in question, and a degeneration argument at $u=0$ confines any further coincidence to a narrow class of word pairs. A freeness theorem for the rotations through $\arccos\frac13$ about the three coordinate axes (Theorem~\ref{thm:rank3}), proved by a rank-one-modulo-$3$ refinement of Świerczkowski's method, then excludes every sign-pattern coincidence outright; the residue is a single symmetric-word condition (Conjecture~\ref{conj:exact}), verified through word length $12$.
 \end{enumerate}
 
@@ -85,7 +89,7 @@ We work throughout in a complex compression of the quaternions ($\HH=\CC\oplus\C
 \]
 and \eqref{eq:first} becomes the one-line statement $f_1=\zeta\bz\,x$, $F=\zeta^2 w$. The appendix tabulates, in this notation, every identity through word length $6$ and a sample beyond; all tables, and every identity displayed in the paper, have been generated and verified by machine (Remark~\ref{rem:verify}).
 
-For orientation within the literature on sums of squares of polynomials: the counting of essentially different representations has precedent---most famously, a smooth complex ternary quartic has exactly $63$ inequivalent representations as a sum of three squares \cite{PSV}, exactly $8$ of them real when the quartic is positive semidefinite with smooth zero curve \cite{PRSS}---but there the count attaches to a single form, while here it attaches to a bihomogeneous family, and the enumeration is by words rather than by Gram matrices. We have not found the present family, or its census, in the literature; in particular Shapiro's monograph \cite{ShapiroBook}, which surveys the composition problem comprehensively, contains nothing of this bihomogeneous word-indexed shape---its treatment of nonbilinear phenomena (Hopf constructions, quadratic maps between spheres) concerns a different question. We would be glad to learn of antecedents beyond those cited.
+For orientation within the literature on sums of squares of polynomials: the counting of essentially different representations has precedent---a smooth complex ternary quartic has exactly $63$ inequivalent representations as a sum of three squares \cite{PSV}, exactly $8$ of them real when the quartic is positive semidefinite with smooth zero curve \cite{PRSS}---but there the count attaches to a single form, while here it attaches to a bihomogeneous family, and the enumeration is by words rather than by Gram matrices. We have not found the present family, or its census, in the literature; in particular Shapiro's monograph \cite{ShapiroBook}, which surveys the composition problem comprehensively, contains nothing of this bihomogeneous word-indexed shape---its treatment of nonbilinear phenomena (Hopf constructions, quadratic maps between spheres) concerns a different question.
 
 \section{Words, evaluations, and complex coordinates}\label{sec:setup}
 
@@ -177,7 +181,7 @@ These are polynomial identities with integer coefficients, so the argument is va
 \end{proof}
 
 \begin{remark}\label{rem:mu-nu}
-One can argue instead by comparing the automorphism $\mu\colon(i,j,k)\mapsto(-i,k,j)$ with the anti-automorphism $\nu\colon(i,j,k)\mapsto(i,k,j)$: each relates $h(\sigma)$ to the same transform of itself, and comparing the two conclusions yields $f_i=-f_i$. Since $\mu\nu=\theta$, this is the same symmetry as in the first proof, differently packaged; like the first proof it establishes $2f_i=0$ and closes through the universal case $R=\ZZ$. Only the second proof dispenses with $2$ altogether. In every formulation \eqref{eq:main-shape} is an identity of integer polynomials and specializes to every commutative ring, including those of characteristic $2$, where it degenerates gracefully.
+One can argue instead by comparing the automorphism $\mu\colon(i,j,k)\mapsto(-i,k,j)$ with the anti-automorphism $\nu\colon(i,j,k)\mapsto(i,k,j)$: each relates $h(\sigma)$ to the same transform of itself, and comparing the two conclusions yields $f_i=-f_i$. Since $\mu\nu=\theta$, this is the same symmetry as in the first proof, differently packaged; like the first proof it establishes $2f_i=0$ and closes through the universal case $R=\ZZ$. Only the second proof dispenses with $2$ altogether. In every formulation \eqref{eq:main-shape} is an identity of integer polynomials and specializes to every commutative ring, including those of characteristic $2$.
 \end{remark}
 
 \begin{remark}
@@ -251,11 +255,10 @@ Equivalently, every monomial of $F$ has $w$-degree minus $\bw$-degree equal to $
 
 \subsection{The subfamily $m=0$ and Chebyshev polynomials}
 For $\sigma=\beta^n$, the commutative subring $\RR[x,\omega]$ with $\omega=wj$, $\omega^2=-w\bw$, gives
-\[
-(x+wj)^n=P_n(x,w\bw)+Q_n(x,w\bw)\,wj,
-\qquad
-P_n+Q_n\,\tau=\prod\text{-expansion of }(x+\tau)^n\ \text{at}\ \tau^2=-w\bw,
-\]
+\begin{align*}
+(x+wj)^n&=P_n(x,w\bw)+Q_n(x,w\bw)\,wj,\\
+P_n+Q_n\,\tau&=\text{the expansion of }(x+\tau)^n\ \text{at}\ \tau^2=-w\bw,
+\end{align*}
 so that $P_n(x,r^2)=\operatorname{Re}(x+ir)^n$ and $r\,Q_n(x,r^2)=\operatorname{Im}(x+ir)^n$: the classical (Chebyshev-governed) identities for $(x^2+y^2+z^2)^n$. That every power of a sum of three squares is again a sum of three squares is a theorem of Catalan, with explicit identities for small powers---his cube identity (see \cite[Ch.~VII, pp.~267--268]{Dickson}) is the type-$(0,3)$ row of our family up to relabeling; the closed form via $\operatorname{Re}$ and $\operatorname{Im}$ appears to be folklore. The word construction embeds this family (as the $\alpha$-free words) and deforms it (as soon as $\alpha$'s interleave).
 
 \subsection{Which coordinate can be killed?}\label{subsec:classify}
@@ -351,7 +354,7 @@ $4$ & 2 & 2 & 30 & 30 & 202 & 202 & 838 & 838
 \end{center}
 
 \smallskip
-The contrast between rows and diagonals deserves emphasis: for fixed $m$ the counts grow polynomially in $n$ (linearly for $m=1$), while the diagonal entries $1, 6, 42, 318,\dots$ grow exponentially. A glance at the table could suggest exponential growth in $m+n$; the generating function shows this impression is correct only along diagonals.
+For fixed $m$ the counts grow polynomially in $n$ (linearly for $m=1$), while the diagonal entries $1, 6, 42, 318,\dots$ grow exponentially; growth in $m+n$ is exponential only along diagonals.
 
 \subsection{Fine equivalence}\label{sec:fine}
 The finest natural equivalence identifies triples with the same multiset $\{f_1^2,f_j^2,f_k^2\}$, i.e., allows independent sign changes and permutations. By Proposition~\ref{prop:parity}, $f_1$ has even and $f_j,f_k$ odd $(y,z)$-parity, so (nondegeneracy granted) a permutation can only transpose $f_j$ with $f_k$. The independent sign changes and the transposition are effected by conjugating $h(\sigma)$ by units in $\{1,i,j,k\}$ and by $\frac{j+k}{\sqrt2}$; each such conjugation carries the letter values to letter values \emph{of a substituted variable system} (for instance conjugation by $j$ fixes $x+yj+zk$ only after $z\mapsto-z$), and the arguments of Theorem~\ref{thm:census} then localize any possible coincidence:
@@ -437,7 +440,7 @@ In the Clifford setting, for which quadratic spaces does an exact word census su
 \end{question}
 
 \begin{remark}[Verification]\label{rem:verify}
-All identities displayed or tabulated in this paper were generated symbolically from their words and verified against Theorem~\ref{thm:cancel} and \eqref{eq:norm-of-word} by machine; the census values through length $12$ were computed by exhaustive enumeration and canonicalization under the fine equivalence. Beyond this, the mathematical core of the paper has been formally verified in Lean~4 against Mathlib, over an arbitrary commutative ring where so stated: Theorem~\ref{thm:cancel} (by the second proof) and Corollary~\ref{cor:identity}; the evenness of the $\alpha$-count; Proposition~\ref{prop:parity}; the $[2,3,3]$ obstruction of the remark following Proposition~\ref{prop:no-first-power}; Świerczkowski's freeness theorem for the $\arccos\frac13$ pair, in the simplified form of Remark~\ref{rem:swier-simpl}; Theorem~\ref{thm:inject}, at the level of the generic polynomial evaluation and up to sign; Theorem~\ref{thm:census} in full---the classification of identities up to sign-equivalence, the bisection, the identity $|S(m,n)|=2R(m,\lceil n/2\rceil-1)$ with the recurrence for $R$ and its closed forms for $m\le2$, the count of classes as a single statement, and kernel-checked enumeration instances through length $7$; and Theorem~\ref{thm:rank3}, by the mesh argument exactly as printed, from which Świerczkowski's theorem for the pair is re-derived as a corollary, so that the freeness of the pair carries two independent machine-checked proofs. The formalization comprises ninety-one theorems in four files, with no unverified assumptions beyond the standard axioms of Mathlib; it, the paper source, and all scripts are available at \texttt{github.com/DavidVFeldman/three-squares-repo} and archived at \textsc{doi}:\texttt{10.5281/zenodo.21943651}.
+All identities displayed or tabulated in this paper were generated symbolically from their words and verified against Theorem~\ref{thm:cancel} and \eqref{eq:norm-of-word} by machine; the census values through length $12$ were computed by exhaustive enumeration and canonicalization under the fine equivalence. Beyond this, the mathematical core of the paper has been formally verified in Lean~4 against Mathlib, over an arbitrary commutative ring where so stated: Theorem~\ref{thm:cancel} (by the second proof) and Corollary~\ref{cor:identity}; the evenness of the $\alpha$-count; Proposition~\ref{prop:parity}; the $[2,3,3]$ obstruction of the remark following Proposition~\ref{prop:no-first-power}; Świerczkowski's freeness theorem for the $\arccos\frac13$ pair, in the simplified form of Remark~\ref{rem:swier-simpl}; Theorem~\ref{thm:inject}, at the level of the generic polynomial evaluation and up to sign; Theorem~\ref{thm:census} in full---the classification of identities up to sign-equivalence, the bisection, the identity $|S(m,n)|=2R(m,\lceil n/2\rceil-1)$ with the recurrence for $R$ and its closed forms for $m\le2$, the count of classes as a single statement, and kernel-checked enumeration instances through length $7$; and Theorem~\ref{thm:rank3}, by the mesh argument exactly as printed, from which Świerczkowski's theorem for the pair is re-derived as a corollary, so that the freeness of the pair carries two independent machine-checked proofs. The formalization comprises ninety-one theorems in four files, with no unverified assumptions beyond the standard axioms of Mathlib; it, the paper source, and all scripts are available at \texttt{github.com/\allowbreak DavidVFeldman/\allowbreak three-squares-repo} and archived at \textsc{doi}:\texttt{10.5281/zenodo.21943651}.
 \end{remark}
 
 \appendix

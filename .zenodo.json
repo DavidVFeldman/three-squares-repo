@@ -1,0 +1,13 @@
+{
+  "title": "Polynomial identities, sums of three squares, and quaternionic (anti-)automorphisms",
+  "creators": [
+    {
+      "name": "Feldman, David Victor",
+      "orcid": "0000-0001-6943-4833",
+      "affiliation": "University of New Hampshire"
+    }
+  ],
+  "license": "cc-by-4.0",
+  "upload_type": "software",
+  "description": "Paper and Lean 4 formalization (91 theorems, four files): word-indexed polynomial identities expressing (t^2+u^2)^{2m}(x^2+y^2+z^2)^n as a sum of three squares; exact census with generating function (1+s)/(1-s-q-3sq); injectivity via Swierczkowski's freeness theorem; freeness of the rank-three coordinate-axis rotation group at arccos(1/3)."
+}
